@@ -1,0 +1,41 @@
+// if pre-flights fail for used ports 10251,10252
+netstat -lnp | grep 1025
+kill PID
+minikube stop/delete
+kubeadm reset?
+
+// checks
+systemctl status/start kubelet
+systemctl status/stop localkube // if localkube process cannot be killed by stopping/resetting kubeadm and minikube
+kubectl get pods/svc --all-namespaces (-o wide //gives IP and node info)
+kubectl describe nodes
+journalctl -xe
+
+//random
+/etc/systemd/system/kubelet.service.d
+/etc/kubernetes - config files after kubeadm init
+ /var/log/syslog
+
+//networking + dns
+sysctl net.bridge.bridge-nf-call-iptables=1
+
+// disable swap
+swapoff -a ("Running with swap is not supported")
+
+//x509 certs error
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+// !!
+The cluster created here has a single master, with a single etcd database running on it.
+This means that if the master fails, your cluster loses its configuration data and will need to be recreated from scratch.
+ Adding HA support (multiple etcd servers, multiple API servers, etc) to kubeadm is still a work-in-progress.
+Workaround: regularly back up etcd. The etcd data directory configured by kubeadm is at /var/lib/etcd on the master
+
+Steps:
+kubeadm reset (ALWAYS)
+kubeadm init (--api-advertise-address=192.168.99.20)
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+export kubever=$(kubectl version | base64 | tr -d '\n')
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
