@@ -39,3 +39,19 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 export kubever=$(kubectl version | base64 | tr -d '\n')
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+
+k8s - Links
+https://www.profiq.com/kubernetes-cluster-setup-using-virtual-machines/
+https://unix.stackexchange.com/questions/198912/copy-paste-fedora-and-virtualbox-centos7
+https://www.if-not-true-then-false.com/2010/install-virtualbox-with-yum-on-fedora-centos-red-hat-rhel/
+http://christophermaier.name/2010/09/01/host-only-networking-with-virtualbox/
+https://serverfault.com/questions/521621/centos-dns-not-working-cannot-resolve-any-hostnames
+https://github.com/weaveworks/weave
+https://github.com/kubernetes/kubeadm/issues/339
+https://github.com/kelseyhightower/kubernetes-the-hard-way
+https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units
+https://www.ianlewis.org/en/how-kubeadm-initializes-your-kubernetes-master
+https://blog.alexellis.io/kubernetes-in-10-minutes/
+https://github.com/kubernetes/kubernetes/issues/48798
+https://kubernetes.io/docs/user-guide/kubectl-cheatsheet/
+https://mohitgoyal.co/2017/08/26/create-a-kubernetes-cluster-on-centos/
